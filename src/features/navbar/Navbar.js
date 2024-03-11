@@ -196,15 +196,34 @@ function Navbar({ children }) {
                     </div>
                   </div>
                   <button
+                    className="ml-auto"
+                    onClick={() => dispatch(toggleDarkMode())}
+                  >
+                    {mode ? (
+                      <FontAwesomeIcon
+                        icon={faSun}
+                        className="text-gray-200"
+                        size="xl"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faMoon}
+                        className="text-gray-400"
+                        size="xl"
+                      />
+                    )}
+                  </button>
+                  <button
                     type="button"
-                    className=" ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="ml-2  flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                   <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 mb-5 -ml-3 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                    4
+                    5
                   </span>
                 </div>
+
                 <div className="mt-3 space-y-1 px-2">
                   {userNavigation.map((item) => (
                     <Disclosure.Button
