@@ -5,6 +5,10 @@ import {
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector, useDispatch } from "react-redux";
+import { selectDarkMode, toggleDarkMode } from "../darkmode/darkModeSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 const user = {
   name: "Rijurekh Ghosh",
@@ -28,9 +32,12 @@ function classNames(...classes) {
 }
 
 function Navbar({ children }) {
+  const mode = useSelector(selectDarkMode);
+  const dispatch = useDispatch();
+
   return (
     <div className="min-h-full">
-      <Disclosure as="nav" className="bg-stone-600">
+      <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,8 +59,8 @@ function Navbar({ children }) {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-stone-800 text-white"
-                              : "text-gray-300 hover:bg-stone-800 hover:text-white",
+                              ? "bg-gray-800 text-white"
+                              : "text-gray-300 hover:bg-gray-800 hover:text-white",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -66,9 +73,24 @@ function Navbar({ children }) {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
+                    <button onClick={() => dispatch(toggleDarkMode())}>
+                      {mode ? (
+                        <FontAwesomeIcon
+                          icon={faSun}
+                          className="text-gray-200"
+                          size="xl"
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faMoon}
+                          className="text-gray-400"
+                          size="xl"
+                        />
+                      )}
+                    </button>
                     <button
                       type="button"
-                      className=" rounded-full bg-stone-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className=" rounded-full ml-4 bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <ShoppingCartIcon
                         className="h-6 w-6"
@@ -82,7 +104,7 @@ function Navbar({ children }) {
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
                           <img
@@ -124,7 +146,7 @@ function Navbar({ children }) {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-stone-800 p-2 text-gray-400 hover:bg-stone-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -146,7 +168,7 @@ function Navbar({ children }) {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-stone-900 text-white"
+                        ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium"
                     )}
@@ -175,7 +197,7 @@ function Navbar({ children }) {
                   </div>
                   <button
                     type="button"
-                    className=" ml-auto flex-shrink-0 rounded-full bg-stone-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className=" ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
@@ -208,9 +230,9 @@ function Navbar({ children }) {
           </h1>
         </div>
       </header> */}
-      <main>
+      {/* <main>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{children}</div>
-      </main>
+      </main> */}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
+import { selectDarkMode } from "../darkmode/darkModeSlice";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -98,16 +99,14 @@ const products = [
 ];
 
 export default function ProductList() {
-  const count = useSelector(selectCount);
-  const dispatch = useDispatch();
+  const mode = useSelector(selectDarkMode);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <div>
+    <div className={`${mode ? "dark" : "light"}`}>
       <div>
-        <div className="bg-white">
+        <div className={`bg-white dark:bg-gray-950 p-4`}>
           <div>
-            {/* Mobile filter dialog */}
             <Transition.Root show={mobileFiltersOpen} as={Fragment}>
               <Dialog
                 as="div"
@@ -221,17 +220,17 @@ export default function ProductList() {
 
             <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                   All Products
                 </h1>
 
                 <div className="flex items-center">
                   <Menu as="div" className="relative inline-block text-left">
                     <div>
-                      <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                      <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700  dark:text-gray-50 hover:text-gray-900">
                         Sort
                         <ChevronDownIcon
-                          className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 dark:text-gray-50 group-hover:text-gray-500"
                           aria-hidden="true"
                         />
                       </Menu.Button>
@@ -309,8 +308,8 @@ export default function ProductList() {
                         {({ open }) => (
                           <>
                             <h3 className="-my-3 flow-root">
-                              <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">
+                              <Disclosure.Button className="flex w-full items-center justify-between bg-white dark:bg-gray-950 py-3 text-sm text-gray-400 hover:text-gray-500">
+                                <span className="font-medium text-gray-900 dark:text-gray-200">
                                   {section.name}
                                 </span>
                                 <span className="ml-6 flex items-center">
@@ -345,7 +344,7 @@ export default function ProductList() {
                                     />
                                     <label
                                       htmlFor={`filter-${section.id}-${optionIdx}`}
-                                      className="ml-3 text-sm text-gray-600"
+                                      className="ml-3 text-sm text-gray-600 dark:text-gray-400"
                                     >
                                       {option.label}
                                     </label>
@@ -362,7 +361,7 @@ export default function ProductList() {
                   {/* Product grid */}
                   <div className="lg:col-span-3">
                     {/* product lis */}
-                    <div className="bg-white">
+                    <div className="bg-white dark:bg-gray-950">
                       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                           {products.map((product) => (
@@ -376,7 +375,7 @@ export default function ProductList() {
                               </div>
                               <div className="mt-4 flex justify-between">
                                 <div>
-                                  <h3 className="text-sm text-gray-700">
+                                  <h3 className="text-sm text-gray-700 dark:text-gray-200">
                                     <a href={product.href}>
                                       <span
                                         aria-hidden="true"
@@ -385,11 +384,11 @@ export default function ProductList() {
                                       {product.name}
                                     </a>
                                   </h3>
-                                  <p className="mt-1 text-sm text-gray-500">
+                                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                     {product.color}
                                   </p>
                                 </div>
-                                <p className="text-sm font-medium text-gray-900">
+                                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                                   {product.price}
                                 </p>
                               </div>
@@ -405,24 +404,24 @@ export default function ProductList() {
 
               {/* section of product and filter ends here */}
 
-              <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+              <div className="flex items-center justify-between border-t border-gray-200 bg-white dark:bg-gray-950 px-4 py-3 sm:px-6">
                 <div className="flex flex-1 justify-between sm:hidden">
                   <a
                     href="#"
-                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white dark:bg-gray-950 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50"
                   >
                     Previous
                   </a>
                   <a
                     href="#"
-                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white dark:bg-gray-950 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50"
                   >
                     Next
                   </a>
                 </div>
                 <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                   <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-200">
                       Showing <span className="font-medium">1</span> to{" "}
                       <span className="font-medium">2</span> of{" "}
                       <span className="font-medium">6</span> results
@@ -435,7 +434,7 @@ export default function ProductList() {
                     >
                       <a
                         href="#"
-                        className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                        className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 dark:text-gray-500 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:z-20 focus:outline-offset-0"
                       >
                         <span className="sr-only">Previous</span>
                         <ChevronLeftIcon
@@ -447,19 +446,19 @@ export default function ProductList() {
                       <a
                         href="#"
                         aria-current="page"
-                        className="relative z-10 inline-flex items-center bg-stone-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="relative z-10 inline-flex items-center bg-gray-600 dark:bg-gray-400 px-4 py-2 text-sm font-semibold text-white  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         1
                       </a>
                       <a
                         href="#"
-                        className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                        className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:z-20 focus:outline-offset-0"
                       >
                         2
                       </a>
                       <a
                         href="#"
-                        className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                        className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 focus:z-20 focus:outline-offset-0"
                       >
                         <span className="sr-only">Next</span>
                         <ChevronRightIcon
